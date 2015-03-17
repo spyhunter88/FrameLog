@@ -2,6 +2,7 @@
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity;
+using FrameLog.Contexts;
 
 namespace FrameLog
 {
@@ -12,5 +13,11 @@ namespace FrameLog
 
         public DbContext Context { get; set; }
         public ObjectContext ObjectContext { get { return ((System.Data.Entity.Infrastructure.IObjectContextAdapter)Context).ObjectContext; } }
+
+        /// <summary>
+        /// Keep IHistoryContext reference
+        /// </summary>
+        /// <returns></returns>
+        public LogContext LogContext { get; set; }
     }
 }

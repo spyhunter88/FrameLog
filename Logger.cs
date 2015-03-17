@@ -12,6 +12,7 @@ namespace FrameLog
             this.user = user;
             this.contextInfo = contextInfo;
             context = new LogContext();
+            this.contextInfo.LogContext = context;
         }
 
         public Logger(ContextInfo contextInfo, int userId)

@@ -1,10 +1,11 @@
 ﻿using FrameLog.Models;
 using System.Data.Entity;
+using FrameLog.Helpers;
 
 namespace FrameLog.Contexts
 {
 
-    public class LogContext : DbContext
+    public class LogContext : DbContext, IHistoryContext
     {
 
         public LogContext()
@@ -22,5 +23,27 @@ namespace FrameLog.Contexts
             modelBuilder.Entity<ObjectChange>().ToTable("ObjectChanges");
             modelBuilder.Entity<PropertyChange>().ToTable("PropertyChanges");
         }
+
+        #region Implement IHistoryContext
+        public bool ObjectHasReference(object model)
+        {
+            return DataContextHelper.ObjectHasReference(model);
+        }
+
+        public string GetReferenceForObject(object model)
+        {
+            return DataContextHelper.GetReferenceForObject(model);
+        }
+
+        public string GetReferencePropertyForObject(object model)
+        {
+            return DataContextHelper.GetReferencePropertyForObject(model);
+        }
+
+        public object GetObjectByReference(System.Type type, string raw)
+        {
+            return DataContextHelper.GetObjectByReference(this, type, raw);
+        }
+        #endregion
     }
 }

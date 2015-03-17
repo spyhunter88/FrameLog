@@ -69,5 +69,23 @@ namespace FrameLog.Helpers
         {
             return KeyPropertyName;
         }
+
+        public static bool ObjectHasReference(object entity)
+        {
+            if (entity == null)
+                return false;
+
+            IHasLoggingReference entityWithReference = entity as IHasLoggingReference;
+            if (entityWithReference != null)
+                return true;
+
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.IgnoreCase;
+            string keyPropertyName = GetReferencePropertyForObject(entity);
+            var keyProperty = entity.GetType().GetProperty(keyPropertyName, flags);
+            if (keyProperty != null)
+                return true;
+
+            return false;
+        }
     }
 }

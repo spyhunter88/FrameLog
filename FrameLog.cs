@@ -6,6 +6,7 @@ using FrameLog.Logging;
 using FrameLog.Patterns.Logging;
 using FrameLog.Filter;
 using FrameLog.Translation.Serializers;
+using FrameLog.Translation;
 
 namespace FrameLog
 {
@@ -29,7 +30,7 @@ namespace FrameLog
             this.contextInfo = contextInfo;
             this.factory = factory;
             this.filter = (filter ?? Filters.Default).Get(contextInfo);
-            // this.serializer = (serializer ?? new ValueTranslationManager(contextInfo.Context));
+            this.serializer = (serializer ?? new ValueTranslationManager(contextInfo.LogContext));
             Enabled = true;
         }
 
